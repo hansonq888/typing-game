@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box; /* This makes the border of boxes within the box  */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* centers content horizantally */
+    margin: 0;
+    background: purple;
+}
+
+body, .quote-input {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container {
+    background-color: pink;
+    padding: 1rem;
+    border-radius: .5rem;
+    width: 700px;
+    max-width: 90%;
+}
+
+.timer {
+    position: absolute;
+    top: 2rem; /* 2 rem from top */
+    font-size: 3rem;
+    color: pink;
+    font-weight: bold;
+}
+
+.quote-display {
+    margin-bottom: 1rem;
+    margin-left: calc(1rem + 2px);
+    margin-right: calc(1rem + 2px);
+}
+
+.quote-input {
+    background-color: transparent;
+    border: 2px solid rgb(255, 129, 150);
+    outline: none; /* if you disable outline, make sure to edit focus state */
+    width: 100%;
+    height: 8rem;
+    margin: auto;
+    resize: none; /* can't resize box */
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .5rem;
+}
+
+.quote-input:focus {
+    border-color: purple;
+}
+
+
+/* Thats all for CSS */
