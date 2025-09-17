@@ -4,6 +4,7 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* centers content horizantally */
@@ -53,6 +54,36 @@ body, .quote-input {
 .quote-input:focus {
     border-color: purple;
 }
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+    text-decoration: underline;
+}
+
+#pauseButton {
+    color: purple;
+    display: block;   /* makes it a block element */
+    margin: 2rem auto; /* 20px top/bottom, auto left/right centers it */
+    border: none;            /* remove default border */
+    border-radius: .5rem;   /* rounded corners */
+    cursor: pointer;    
+    width: 200px;
+    height: 50px;
+    background-color: pink;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1rem;
+}
+
+#pauseButton:hover {
+    background-color: rgb(251, 110, 133);
+}
+
+
+
 
 
 /* Thats all for CSS */
