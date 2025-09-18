@@ -12,8 +12,8 @@ const button = document.getElementById('pauseButton');
 
 
 quoteInputElement.addEventListener('input', () => {
-    if (buttonClicked == 0) {
-        resume()
+    if (!isRunning) {
+        start();
     }
     const arrayQuote = quoteDisplayElement.querySelectorAll('span')
     const arrayValue = quoteInputElement.value.split('')
@@ -53,47 +53,59 @@ async function renderNewQuote() {
         quoteDisplayElement.appendChild(characterSpan) 
     })
     quoteInputElement.value = null
-    startTimer()
+    reset();
+    start();
 }
 
-let buttonClicked = 1
-let startTime;
-let elapsedTime = 0;
-let timerInterval;
 
+let timer = null;
+let startTime = 0;
+let elapsedTime = 0;
+let isRunning = false;
+//0 is paused, 1 is running
 button.addEventListener('click', () => {
-    if (buttonClicked === 1) {
+    if (isRunning) {
         // Pause
-        buttonClicked = 0;
-        button.innerText = "Continue Typing To Resume";
-        elapsedTime += new Date() - startTime;
-        clearInterval(timerInterval);
+        stop();
+        button.innerText = "Continue Typing To Resume"
     } else {
         // Resume
-        resume()
+        start();
+        button.innerText = "Pause"
         
     }
 });
-function resume() {
-    buttonClicked = 1;
-    button.innerText = "Pause";
-    startTime = new Date();
-    runTimer();
+
+function start() {
+    if (!isRunning) {
+        startTime = Date.now() - elapsedTime;
+        timer = setInterval(update, 1000);
+        isRunning = true;
+    }
 }
 
-function runTimer() {
-    timerInterval = setInterval(() => {
-        const total = elapsedTime + (new Date() - startTime);
-        timerElement.innerText = Math.floor(total / 1000);
-    }, 1000);
+function stop() {
+    if (isRunning) {
+        clearInterval(timer);
+        elapsedTime = Date.now() - startTime;
+        isRunning = false;
+    }
 }
 
-function startTimer() {
-    startTime = new Date();
+
+function reset() {
+    clearInterval(timer);
+    startTime = 0;
     elapsedTime = 0;
-    runTimer();
+    isRunning = false;
 }
 
+function update() {
+    const currentTime = Date.now();
+    elapsedTime = currentTime - startTime;
+    let seconds = Math.floor(elapsedTime / 1000);
+    timerElement.innerText = seconds;
+}
 
 
 // Get a quote on page load
