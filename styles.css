@@ -13,7 +13,7 @@ body {
 }
 
 body, .quote-input {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .container {
@@ -25,7 +25,8 @@ body, .quote-input {
 }
 
 .timer {
-    position: absolute;
+    /* position: absolute; */
+    margin-bottom: 4rem;
     top: 2rem; /* 2 rem from top */
     font-size: 3rem;
     color: pink;
@@ -64,26 +65,30 @@ body, .quote-input {
     text-decoration: underline;
 }
 
-#pauseButton {
+.button-container {
+    display: flex;
+    justify-content: center; /* centers them horizontally */
+    gap: 1rem;
+    
+}
+#pauseButton, #nextButton {
+    margin: 2rem auto;
     color: purple;
-    display: block;   /* makes it a block element */
-    margin: 2rem auto; /* 20px top/bottom, auto left/right centers it */
-    border: none;            /* remove default border */
-    border-radius: .5rem;   /* rounded corners */
+    border: none;
+    border-radius: .5rem;
     cursor: pointer;    
     width: 200px;
     height: 50px;
     background-color: pink;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1rem;
 }
 
-#pauseButton:hover {
+#pauseButton:hover,
+#nextButton:hover {
     background-color: rgb(251, 110, 133);
 }
 
-
-
-
-
-/* Thats all for CSS */
+.speedBar {
+    color: purple;
+}

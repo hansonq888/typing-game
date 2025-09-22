@@ -8,7 +8,8 @@ const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
-const button = document.getElementById('pauseButton');
+const pauseButton = document.getElementById('pauseButton');
+const nextButton = document.getElementById('nextButton');
 
 
 quoteInputElement.addEventListener('input', () => {
@@ -35,8 +36,19 @@ quoteInputElement.addEventListener('input', () => {
             correct = false
         }
     })
-    if (correct) renderNewQuote()
+    if (correct) { 
+        playCorrect();
+        displaySpeed(wordCount, elapsedTime);
+        renderNewQuote(); 
+    }
 })
+
+
+function playCorrect() {
+    let audio = new Audio("correct.mp3");
+    audio.play();
+
+}
 
 function getRandomQuote() {
     return fetch(RANDOM_QUOTE_API_URL)
@@ -44,8 +56,12 @@ function getRandomQuote() {
         .then(data => data.content)
 }
 
+let wordCount = 0;
+
 async function renderNewQuote() {
+    quoteInputElement.focus();
     const quote = await getRandomQuote()
+    wordCount = quote.split(/\s+/).length;
     quoteDisplayElement.innerText = '' // inner texts targets the text
     quote.split('').forEach(character => { // splits the quote into html <span> elements, so that each span can be coloured
         const characterSpan = document.createElement('span')
@@ -58,20 +74,22 @@ async function renderNewQuote() {
 }
 
 
+
+
 let timer = null;
 let startTime = 0;
 let elapsedTime = 0;
 let isRunning = false;
 //0 is paused, 1 is running
-button.addEventListener('click', () => {
+pauseButton.addEventListener('click', () => {
     if (isRunning) {
         // Pause
         stop();
-        button.innerText = "Continue Typing To Resume"
+        pauseButton.innerText = "Continue Typing To Resume"
     } else {
         // Resume
         start();
-        button.innerText = "Pause"
+        pauseButton.innerText = "Pause"
         
     }
 });
@@ -107,6 +125,18 @@ function update() {
     timerElement.innerText = seconds;
 }
 
+nextButton.addEventListener('click', () => {
+    if (!isRunning) {
+        document.getElementById("pauseButton").click()
+    }
+    renderNewQuote();
+});
+
+function displaySpeed(wordCount, elapsedTime) {
+    let minutes = elapsedTime / 1000 / 60;
+    speed = Math.floor(wordCount/minutes);
+    document.getElementById("speedBar").innerHTML = "Last round's speed: " + speed + " WPM";
+}
 
 // Get a quote on page load
 renderNewQuote();
